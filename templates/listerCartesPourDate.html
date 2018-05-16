@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% include "vueEntete.html" %}
+{% include "vueEnteteGestionnaire.html" %}	
+
+
+<head>
+<style>
+body {
+    background-color:#DCDCDC;
+}
+</style>
+</head>
+        
+<table class="table table-bordered">
+	 <thead class="thead-inverse">
+		<tr class="alert alert-danger fade in">
+		
+			<th>Numéro de Carte</th>
+			<th>Nom</th>
+			<th>Prénom</th>	
+			<th>Service</th>
+			
+			
+		</tr>
+	</thead>
+	
+
+
+		  
+	<tbody>
+		{% for uneResa in resas %}
+			<tr>
+				<td>{{ uneResa['numeroCarte'] }}</td>
+				<td>{{ uneResa['nom'] }}</td>
+				<td>{{ uneResa['prenom'] }}</td>
+				<td>{{ uneResa['nomService'] }}</td>
+				
+					
+			</tr>
+		
+		{% endfor %}
+	
+	</tbody>
+	
+
+			
+{% include "vuePied.html" %}
+
+
+	
+	

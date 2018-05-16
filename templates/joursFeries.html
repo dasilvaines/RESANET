@@ -1,0 +1,82 @@
+{% include "vueEntete.html" %}
+{% include "vueEnteteGestionnaire.html" %}
+
+
+<head>
+<style>
+body {
+    background-color:#DCDCDC;
+}
+</style>
+</head>
+
+
+{% if card == True %}
+	<div class="alert alert-success" role="alert">
+		  Le jour férié {{ jour }}/{{ mois }}/2018 à été ajouté avec succès !
+	</div>
+{% endif %}
+
+{% if cardS == True %}
+	<div class="alert alert-success" role="alert">
+		  Le jour férié {{ jour }}/{{ mois }}/2018 à été supprimé avec succès !
+	</div>
+{% endif %}
+
+
+
+<table class="table table-hover">
+	<thead class="thead-inverse">
+		<tr class="alert alert-warning">
+			<th>Date</th>
+			<th>Libelle</th>	
+			<th>Supprimer</th>			
+		
+		</tr>
+	</thead>
+	<tbody>
+			{% for unJour in ferie %}
+			<tr>
+				<td>{{ unJour['jours'] }}/{{ unJour['mois'] }}/{{ unJour['annee'] }}</td>
+				<td>{{ unJour['libelle'] }}</td>
+				<td><form action="/gestionnaire/joursFeries/supp" method="POST">
+					<input type="hidden" name="jour" value={{ unJour['jours'] }} >
+					<input type="hidden" name="mois" value={{ unJour['mois'] }} >
+					<button type="submit" class="btn btn-inverse btn-xs" >Supprimer</button>
+				</form></td>
+			</tr>
+			{% endfor %}
+			
+			
+	</tbody>
+</table><br/>
+
+<center><a href="/gestionnaire/joursFeries/goAjout" ><button type="button" class="btn btn-secondary" data-dismiss="modal">Ajouter un jour férié</button></a></center>
+
+
+{% if cardAjout == True %}
+	<form action="/gestionnaire/joursFeries/ajouter" method="POST" >
+					
+				 
+					  <div class="modal-dialog" role="document">
+						<div class="modal-content">
+						  <div class="modal-header">
+							<h3 class="modal-title"><strong>Ajouter un jour férié</strong></h3>
+							
+						  </div>
+						  <div class="modal-body">
+							<h4><strong>Informations</strong></h4>
+							<p>Jour : <input type="number" name="jour" max="31" min="1" required ><br/></p>
+							<p>Mois : <input type="number" name="mois" max="12" min="1" required ><br/></p>
+							<p>Libelle : <input type="text" name="libelle" required ><br/></p>
+						  </div>
+						  <div class="modal-footer">						
+							<button type="submit" class="btn btn-primary">Ajouter</button>
+							<a href="/gestionnaire/joursFeries/lister" ><button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button></a>
+						  </div>
+						</div>
+					 
+	</div></form>
+{% endif %}
+
+{% include "vuePied.html" %}
